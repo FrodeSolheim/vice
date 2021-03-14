@@ -1,0 +1,33 @@
+#!/bin/sh
+set -e
+
+# FIXME: tiff?
+# FIXME: jpeg?
+# FIXME: webp?
+
+fsdeps/dep/libpng
+fsdeps/dep/SDL2
+
+PACKAGE=xa-2.3.11
+URL=https://www.floodgap.com/retrotech/xa/dists/$PACKAGE.tar.gz
+SHA256=32f2164c99e305218e992970856dd8e2309b5cb6ac4758d7b2afe3bfebc9012d
+REVISION=0
+
+. fsdeps/dep.sh
+
+python3 fsdeps/download.py $URL sha256:$SHA256
+
+rm -Rf fsdeps/_build && mkdir fsdeps/_build && cd fsdeps/_build
+tar xf ../_sources/$PACKAGE.tar.gz
+cd $PACKAGE
+
+if [ $SYSTEM_OS = "Windows" ]; then
+make mingw
+mkdir -p $PREFIX/bin
+cp xa.exe $PREFIX/bin/
+else
+make
+make install DESTDIR=$PREFIX
+fi
+
+touch $INSTALLED

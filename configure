@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+. fsbuild/system.sh
+
+cd fsbuild/_build/vice-src
+./configure \
+	--enable-sdlui2 \
+	--with-sdlsound \
+	--disable-pdf-docs \
+	--without-gif \
+	--without-jpeg \
+	--without-vorbis \
+	--without-oss \
+	--without-flac \
+	--without-mpg123 \
+	--disable-native-gtk3ui \
+	--without-sun \
+	--disable-hidmgr \
+	--disable-hidutils \
+	--verbose

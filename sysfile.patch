@@ -1,0 +1,36 @@
+--- vice-3.3/src/sysfile.c	2018-08-13 20:22:58.000000000 +0200
++++ vice-fs/src/sysfile.c	2019-05-23 20:26:50.757346503 +0200
+@@ -42,6 +42,10 @@
+ #include "util.h"
+ 
+ /* #define DBGSYSFILE */
++#if 1
++#define DBGSYSFILE
++#include "machine.h"
++#endif
+ 
+ #ifdef DBGSYSFILE
+ #define DBG(x)  printf x
+@@ -57,6 +61,22 @@
+ 
+ static int set_system_path(const char *val, void *param)
+ {
++#if 1
++    const char *boot_path = archdep_boot_path();
++    lib_free(expanded_system_path);
++    expanded_system_path = util_concat(
++        boot_path, "/", machine_name, ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/data/", machine_name, ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/../../Data/", machine_name, ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/data/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/../../Data/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/data/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
++        boot_path, "/../../Data/PRINTER", NULL
++    );
++    return 0;
++#endif
+     char *tmp_path, *tmp_path_save, *p, *s, *current_dir;
+ 
+     util_string_set(&system_path, val);

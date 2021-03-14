@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+rm -f x64sc*
+rm -Rf fsbuild/_build
+
+echo "Downloading vice-3.5.tar.gz..."
+URL=https://netix.dl.sourceforge.net/project/vice-emu/releases/vice-3.5.tar.gz
+# SHA256=1a55b38cc988165b077808c07c52a779d181270b28c14b5c9abf4e569137431d
+SHA256=56b978faaeb8b2896032bd604d03c3501002187eef1ca58ceced40f11a65dc0e
+python3 fsbuild/download.py "$URL" sha256:$SHA256
+
+echo "Extracting vice-3.5.tar.gz..."
+mkdir -p fsbuild/_build
+cd fsbuild/_build
+rm -Rf vice-3.5 vice-src
+tar xf ../_sources/vice-3.5.tar.gz
+mv vice-3.5 vice-src
+
+echo "Applying patches..."
+cd vice-src
+patch -p1 < ../../../sysfile.patch
+cd ..
+
+# echo "Running autogen.sh..."
+# cd vice-src
+# ./autogen.sh
+
+echo "Bootstrap done"

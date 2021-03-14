@@ -1,0 +1,5 @@
+lib*.so*
+/data
+/vice-*
+/x64
+/x64sc

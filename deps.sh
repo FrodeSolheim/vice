@@ -2,8 +2,8 @@
 
 set -e
 
-fsdeps/dep/libpng
-fsdeps/dep/SDL2
-fsdeps/dep/SDL2_image
-fsdeps/dep/xa
-fsdeps/dep/zlib
+fsdeps/packages/libpng
+fsdeps/packages/SDL2
+fsdeps/packages/SDL2_image
+fsdeps/packages/xa
+fsdeps/packages/zlib

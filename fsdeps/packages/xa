@@ -9,9 +9,9 @@ set -e
 fsdeps/packages/libpng
 fsdeps/packages/SDL2
 
-PACKAGE=xa-2.3.11
+PACKAGE=xa-2.3.13
 URL=https://www.floodgap.com/retrotech/xa/dists/$PACKAGE.tar.gz
-SHA256=32f2164c99e305218e992970856dd8e2309b5cb6ac4758d7b2afe3bfebc9012d
+SHA256=a9477af150b6c8a91cd3d41e1cf8c9df552d383326495576830271ca4467bd86
 REVISION=0
 
 . fsdeps/dep.sh
